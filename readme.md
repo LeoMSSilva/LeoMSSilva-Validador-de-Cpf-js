@@ -1,4 +1,4 @@
-# Validador de CPF - JS
+# Validador-de-Cpf.js
 
 ## Sobre
 
