@@ -1,50 +1,61 @@
+const form = document.querySelector('#form');
+
 function Cpf(cpf) {
-    Object.defineProperty(this, 'cpfLimpo', {
-        enumerable: true,
-        get: () => cpf.replace(/\D+/g, '')
-    });
+	Object.defineProperty(this, 'cleanedCpf', {
+		enumerable: true,
+		get: () => cpf.replace(/\D+/g, ''),
+	});
 }
 
-Cpf.prototype.isSequence = function () {
-    return this.cpfLimpo === this.cpfLimpo[0].repeat(this.cpfLimpo.length);
+Cpf.prototype.isSequence = () => {
+	return this.cleanedCpf === this.cleanedCpf[0].repeat(this.cleanedCpf.length);
 };
 
-Cpf.prototype.criaDigito = (cpfParcial) => {
-    const cpfArray = Array.from(cpfParcial);
-    let tamanho = cpfArray.length + 1;
-    let digito = cpfArray.reduce((a, v) => {
-        a += Number(v) * tamanho;
-        tamanho--;
-        return a;
-    }, 0);
-    digito = 11 - digito % 11;
-    return digito > 9 ? '0' : String(digito);
-}
+Cpf.prototype.createDigit = (partialCpf) => {
+	const cpfArray = Array.from(partialCpf);
+	let length = cpfArray.length + 1;
+	let digit = cpfArray.reduce((a, v) => {
+		a += Number(v) * length;
+		length--;
+		return a;
+	}, 0);
+	digit = 11 - (digit % 11);
+	return digit > 9 ? '0' : String(digit);
+};
 
-Cpf.prototype.valida = function () {
-    if (typeof this.cpfLimpo === 'undefined' || this.cpfLimpo.length !== 11 || this.isSequence()) return false;
-    let cpfParcial = this.cpfLimpo.slice(0, -2);
-    const digito1 = this.criaDigito(cpfParcial);
-    const digito2 = this.criaDigito(cpfParcial + digito1);
-    return (cpfParcial + digito1 + digito2) === this.cpfLimpo;
-}
+Cpf.prototype.validate = () => {
+	if (
+		typeof this.cleanedCpf === 'undefined' ||
+		this.cleanedCpf.length !== 11 ||
+		this.isSequence()
+	) {
+		return false;
+	}
+	let partialCpf = this.cleanedCpf.slice(0, -2);
+	const digitOne = this.createDigit(partialCpf);
+	const digitTwo = this.createDigit(partialCpf + digitOne);
+	return partialCpf + digitOne + digitTwo === this.cleanedCpf;
+};
 
-Cpf.prototype.formataCpf = function (cpf) {
-    cpf += '00000000000';
-    return (
-        cpf.slice(0, 3) + '.' +
-        cpf.slice(3, 6) + '.' +
-        cpf.slice(6, 9) + '-' +
-        cpf.slice(9, 11)
-    );
-}
+Cpf.prototype.formatCpf = (cpf) => {
+	if (cpf.length < 11) {
+		cpf += '0'.repeat(11);
+	}
+	cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+	return cpf.slice(0, 14);
+};
 
-document.addEventListener('submit', e => {
-    e.preventDefault();
-    const cpf = document.querySelector('#cpf');
-    const cpf1 = new Cpf(cpf.value);
-    const cpfLimpo = cpf1.formataCpf(cpf1.cpfLimpo);
-    cpf.value = cpfLimpo;
-    cpf1.valida()?cpf.style.color = '#00ff00':cpf.style.color = '#ff0000';
-    setTimeout(() => alert(`${cpfLimpo} ${cpf1.valida()?'é um CPF válido':'é um CPF inválido'}`), 1);
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const cpfElement = document.querySelector('#cpf');
+	const cpfObject = new Cpf(cpfElement.value);
+	const cleanedCpf = cpfObject.formatCpf(cpfElement.value);
+	cpfElement.value = cleanedCpf;
+	cpfElement.style.color = cpfObject.validate() ? '#00ff00' : '#ff0000';
+
+	alert(
+		`${cleanedCpf} ${
+			cpfObject.validate() ? 'é um CPF válido' : 'é um CPF inválido'
+		}`,
+	);
 });
