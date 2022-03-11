@@ -7,8 +7,8 @@ function Cpf(cpf) {
 	});
 }
 
-Cpf.prototype.isSequence = () => {
-	return this.cleanedCpf === this.cleanedCpf[0].repeat(this.cleanedCpf.length);
+Cpf.prototype.isSequence = (cleanedCpf) => {
+	return cleanedCpf === cleanedCpf[0].repeat(cleanedCpf.length);
 };
 
 Cpf.prototype.createDigit = (partialCpf) => {
@@ -23,18 +23,19 @@ Cpf.prototype.createDigit = (partialCpf) => {
 	return digit > 9 ? '0' : String(digit);
 };
 
-Cpf.prototype.validate = () => {
+Cpf.prototype.validate = function () {
 	if (
 		typeof this.cleanedCpf === 'undefined' ||
 		this.cleanedCpf.length !== 11 ||
-		this.isSequence()
+		this.isSequence(this.cleanedCpf)
 	) {
 		return false;
 	}
 	let partialCpf = this.cleanedCpf.slice(0, -2);
 	const digitOne = this.createDigit(partialCpf);
 	const digitTwo = this.createDigit(partialCpf + digitOne);
-	return partialCpf + digitOne + digitTwo === this.cleanedCpf;
+	const newCpf = partialCpf + digitOne + digitTwo;
+	return newCpf === this.cleanedCpf;
 };
 
 Cpf.prototype.formatCpf = (cpf) => {
