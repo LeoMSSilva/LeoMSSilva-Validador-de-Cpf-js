@@ -1,125 +1,122 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
 :root {
-    --primary-color: #113366;
-    --second-color: #2c7cf3;
-    --disable-color: #a1b6d3;
+	--white: #fcfcfc;
+	--white-Opacity: rgba(252, 252, 252, 0.7);
+	--primary-color: #003f9e;
+	--second-color: #4a8ff7;
+	--disable-color: #616c7e;
 }
 
 * {
-    outline: 0;
-    font-family: 'Open sans', sans-serif;
-    font-weight: bold;
-    text-align: center;
-    box-sizing: border-box;
-    text-transform: uppercase;
-    margin: 0;
-    padding: 0;
+	outline: 0;
+	font-family: 'Open sans', sans-serif;
+	font-weight: bold;
+	text-align: center;
+	box-sizing: border-box;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    background-color: var(--primary-color);
+	background-color: var(--primary-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .container {
-    line-height: 1.8em;
-    font-size: 1.3em;
-    max-width: 25rem;
-    max-height: 18rem;
-    margin: 6rem auto;
-    padding: 2rem 0rem 1rem;
-    border-radius: 1.5rem;
-    border: solid 1px #ffffff;
+	line-height: 1.8em;
+	font-size: 1.2em;
+	margin: 25vh auto;
+	padding: 2rem 0rem 1rem;
+	max-width: 90vw;
+	max-height: auto;
+	border-radius: 1.5rem;
+	border: solid 3px var(--white);
 }
 
 h1 {
-    padding: 0.4rem 0rem;
-    margin: 0.2rem 0 1rem;
+	padding: 0.4rem 0rem;
+	margin: 0.2rem 0 1rem;
 }
 
-h1, input, button {
-    background-color: #ffffff;
-    color: var(--primary-color);
-    height: 3rem;
-}
- 
-input, button {
-/* 
-height: 1.8em;
-font-size: 1.2em;
-margin: 0.1em 0;
-border-radius: 20px;
-*/
+h1,
+input,
+button {
+	background-color: var(--white);
+	color: var(--primary-color);
+	height: 3rem;
 }
 
 input {
-    font-size: 1.2em;
-    color: #ffffff;
-    margin: 0.1rem auto 1rem;
-    background-color: var(--primary-color);
-    width: 80%;
-    border: none;
-    border-bottom: 0.18rem solid rgba(255,255,255,0.7);
-    border-radius: 0.2rem;
+	font-size: 1.2em;
+	color: var(--white);
+	margin: 0.1rem auto 1rem;
+	background-color: var(--primary-color);
+	width: 80%;
+	border: none;
+	border-bottom: 0.18rem solid var(--white-Opacity);
+	border-radius: 0.2rem;
 }
 
-input:focus{
-    border: none;
+input:focus {
+	border: none;
 }
 
 button {
-    width: 9rem;
-    font-size: 1.2em;
-    border-radius: 20rem;
-    border: none;
-    cursor: pointer;
-    margin: 0.1rem auto;
+	width: 9rem;
+	font-size: 1.2em;
+	border-radius: 20rem;
+	border: none;
+	cursor: pointer;
+	margin: 0.1rem auto;
 }
 
 button:hover {
-    background-color: var(--second-color);
-    color: #ffffff;
+	background-color: var(--second-color);
+	color: var(--white);
 }
 
 #resultado {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    width: 15rem;
-    margin: 0 auto;
+	background-color: var(--primary-color);
+	color: var(--white);
+	width: 15rem;
+	margin: 0 auto;
 }
 
 ::-webkit-input-placeholder {
-    color: var(--disable-color);
+	color: var(--disable-color);
 }
 
 :-moz-placeholder {
-    color: var(--disable-color);
+	color: var(--disable-color);
 }
 
 ::-moz-placeholder {
-    color: var(--disable-color);
+	color: var(--disable-color);
 }
 
 :-ms-input-placeholder {
-    color: var(--disable-color);
+	color: var(--disable-color);
 }
 
 @media only screen and (max-width: 768px) {
-    .container {
-        margin: 6rem auto;
-        line-height: 1.9em;
-        font-size: 1.2em;
-    }
+	.container {
+		line-height: 2em;
+		font-size: 1.15em;
+	}
 }
 
 @media only screen and (max-width: 576px) {
-    .container {
-        line-height: 2em;
-        font-size: 1.16em;
-    }
+	.container {
+		line-height: 1.8em;
+	}
 }
 
 @media only screen and (max-width: 420px) {
-    .container {
-        margin: 6rem 0.5rem;
-    }
+	.container {
+		line-height: 2em;
+		font-size: 1.1em;
+	}
 }
